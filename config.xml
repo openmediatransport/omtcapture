@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+  <name>Video</name>
+  <!--V4L2 Device Path-->
+  <devicePath>/dev/video0</devicePath>
+  <width>1920</width>
+  <height>1080</height>
+  <frameRateN>60000</frameRateN>
+  <frameRateD>1001</frameRateD>
+  <!--Supported Formats: UYVY, YUY2, NV12-->
+  <codec>UYVY</codec>
+</settings>

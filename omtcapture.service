@@ -1,0 +1,9 @@
+﻿[Unit]
+Description=OMT Capture
+After=network.target
+
+[Service]
+ExecStart=/opt/omtcapture/omtcapture
+
+[Install]
+WantedBy=multi-user.target
