@@ -32,23 +32,54 @@ https://learn.microsoft.com/en-us/dotnet/iot/deployment
 sudo apt install clang
 ```
 
-3. Copy source code for the following repositories into a folder structure similar to the following:
+3. Copy source code for the following repositories into the home directory in a structure similar to the following:
 
 ```
-/libvmx
-/libomtnet
-/omtcapture
+~/libvmx
+~/libomtnet
+~/omtplayer
 ```
 
-4. Build libvmx by running /libvmx/build/buildlinuxarm64.sh
+The easiest way to do this is to git clone these repositories to the home directory using the commands below:
 
-5. Build libomtnet by running /libomtnet/build/buildall.sh
+```
+cd ~/
+git clone https://github.com/openmediatransport/libvmx
+git clone https://github.com/openmediatransport/libomtnet
+git clone https://github.com/openmediatransport/omtplayer
+```
 
-6. Build omtcapture by running /omtcapture/build/buildlinuxarm64.sh
+4. Build libvmx 
 
-7. All files needed will now be in /omtcapture/build/arm64
+```
+cd ~/libvmx/build
+chmod 755 buildlinuxarm64.sh
+./buildlinuxarm64.sh
+```
 
-8. Edit the config file in /omtcapture/build/arm64/config.xml to match the desired capture format.
+5. Build libomtnet 
+
+```
+cd ~/libomtnet/build
+chmod 755 buildall.sh
+./buildall.sh
+```
+
+6. Build omtcapture
+
+```
+cd ~/omtcapture/build
+chmod 755 buildlinuxarm64.sh
+./buildlinuxarm64.sh
+```
+
+7. All files needed will now be in ~/omtcapture/build/arm64
+
+8. Edit the config file in ~/omtcapture/build/arm64/config.xml to match the desired capture format.
+
+```
+nano ~/omtcapture/build/arm64/config.xml
+```
 
 You may need to check the capture device documentation to confirm the maximum format that supports uncompressed video.
 (Many devices may restrict high frame rates to MJPG only for example)
@@ -73,14 +104,29 @@ If the device does not support the selected frame rate, the nearest will be used
 
 ```
 
-9. Run /omtcapture/build/arm64/omtcapture to start the encoding. The source should now be on the network.
+9. Run ~/omtcapture/build/arm64/omtcapture to start the encoding. The source should now be on the network.
+
+```
+~/omtcapture/build/arm64/omtcapture
+```
 
 ## Install as a service (optional)
 
 This configures the app to run automatically when the device starts up.
 
-1. Copy the omtcapture files into a folder called /opt/omtcapture on the system.
+1. Copy the omtcapture files from ~/omtcapture/build/arm64 into a folder called /opt/omtcapture on the system.
+
+```
+sudo mkdir /opt/omtcapture
+sudo cp ~/omtcapture/build/arm64/* /opt/omtcapture/
+```
+
 2. Copy the omtcapture.service template into the /etc/systemd/system/ folder.
+
+```
+sudo cp ~/omtcapture/omtcapture.service /etc/systemd/system/
+```
+
 3. Reload systemctl and enable the service
 
 ```
