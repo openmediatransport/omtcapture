@@ -19,9 +19,23 @@ A base model 2GB Raspberry Pi 5 can comfortably encode at up to 1080p60
 
 ## Instructions
 
+It is recommended to update the Raspberry Pi package manager before proceeding further:
+
+```
+sudo apt update
+```
+
 1. Install dotnet 8 on to device.
 
-Instructions can be found here:
+```
+curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 8.0
+
+echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
+echo 'export PATH=$PATH:$HOME/.dotnet' >> ~/.bashrc
+source ~/.bashrc
+```
+
+For reference, the latest instructions that include the above commands are below:
 https://learn.microsoft.com/en-us/dotnet/iot/deployment
 
 **Important:** The --channel parameter should be set to 8.0
@@ -37,7 +51,7 @@ sudo apt install clang
 ```
 ~/libvmx
 ~/libomtnet
-~/omtplayer
+~/omtcapture
 ```
 
 The easiest way to do this is to git clone these repositories to the home directory using the commands below:
@@ -46,7 +60,7 @@ The easiest way to do this is to git clone these repositories to the home direct
 cd ~/
 git clone https://github.com/openmediatransport/libvmx
 git clone https://github.com/openmediatransport/libomtnet
-git clone https://github.com/openmediatransport/omtplayer
+git clone https://github.com/openmediatransport/omtcapture
 ```
 
 4. Build libvmx 
