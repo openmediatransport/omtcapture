@@ -92,7 +92,7 @@ namespace omtcapture
                         frame.Stride = frame.Width * 2;
                         break;
                     case "YUY2":
-                        frame.Codec = (int)OMTCodec.YUY2;
+                        frame.Codec = (int)V4L2Unmanaged.PIXEL_FORMAT_YUYV;
                         frame.Stride = frame.Width * 2;
                         break;
                     case "NV12":
@@ -106,6 +106,17 @@ namespace omtcapture
 
                 CaptureFormat fmt = new CaptureFormat(frame.Codec, frame.Width, frame.Height, frame.Stride, frame.FrameRateN, frame.FrameRateD);
 
+                Console.WriteLine("Detected Codec Format-CC: " +
+                    (char)(((int)fmt.Codec & 0x000000FF) >> 0) +
+                    (char)(((int)fmt.Codec & 0x0000FF00) >> 8) +
+                    (char)(((int)fmt.Codec & 0x00FF0000) >> 16) +
+                    (char)(((int)fmt.Codec & 0xFF000000) >> 24)
+                    );
+                Console.WriteLine("Detected Dimensions: " +
+                    frame.Width + "x" + frame.Height +
+                    " with stride " + frame.Stride);
+                Console.WriteLine("frameRateN=" + frame.FrameRateN +
+                    " frameRateD=" + frame.FrameRateD);
                 int frameCount = 0;
                 long sentLength = 0;
                 using (OMTSend send = new OMTSend(name, OMTQuality.Default))
@@ -116,6 +127,7 @@ namespace omtcapture
                         if (fmt.Codec == (int)V4L2Unmanaged.PIXEL_FORMAT_YUYV)
                         {
                             fmt.Codec = (int)OMTCodec.YUY2;
+                            Console.WriteLine("Mapping YUYV=YUY2");
                         }
 
                         frame.Codec = fmt.Codec;
