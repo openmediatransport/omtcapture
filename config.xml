@@ -7,6 +7,6 @@
   <height>1080</height>
   <frameRateN>60000</frameRateN>
   <frameRateD>1001</frameRateD>
-  <!--Supported Formats: UYVY, YUY2, NV12-->
+  <!--Supported Formats: UYVY, YUY2, NV12, YUYV-->
   <codec>UYVY</codec>
 </settings>

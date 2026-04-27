@@ -99,6 +99,10 @@ namespace omtcapture
                         frame.Codec = (int)OMTCodec.NV12;
                         frame.Stride = frame.Width;
                         break;
+                    case "YUYV":
+                        frame.Codec = (int)V4L2Unmanaged.PIXEL_FORMAT_YUYV;
+                        frame.Stride = frame.Width * 2;
+                        break;
                     default:
                         Console.WriteLine("Codec not supported"); return;
                 }  
